@@ -1,3 +1,3 @@
-### Chat app
+# Chat app
 
-# Built with Express, Pug & MongoDB
+## Built with Express, Pug & MongoDB
