@@ -18,7 +18,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const URI = process.env.MONGO_URI;
+const URI = process.env.MONGO_URI_PROD;
 const store = new MongoStore({
   url: URI
 });
