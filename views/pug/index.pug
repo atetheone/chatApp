@@ -1,0 +1,103 @@
+//- html
+//-   head
+//-     title Chat app
+//-     meta(name='description', content='Home page')
+//-     meta(charset='utf-8')
+//-     meta(http-equiv='X-UA-Compatible', content='IE=edge')
+//-     meta(name='viewport', content='width=device-width, initial-scale=1')
+//-     link(rel='stylesheet', href='/public/style.css')
+//-   body
+//-     h1.border.center Advanced Node and Express
+//-     a(href='/chat') Join the Chatroom
+//-     h2.center#pug-success-message
+//-     | Looks like this page is being rendered from Pug into HTML!
+//-     | #{title}
+//-     p#pug-variable=message
+    
+    
+    
+//-     if showLogin
+//-       hr
+//-       h2.center Login Form
+//-       form(action='/login', method='post').center
+//-         div
+//-           label Username:
+//-           input(type='text', name='username')
+//-         div
+//-           label Password:
+//-           input(type='password', name='password')
+//-         div
+//-           input(type='submit', value='Log In')
+          
+//-     if showRegistration
+//-       hr
+//-       h2.center Registration Form
+//-       form(action='/register', method='post').center
+//-         div
+//-           label Username:
+//-           input(type='text', name='username')
+//-         div
+//-           label Password:
+//-           input(type='password', name='password')
+//-         div
+//-           input(type='submit', value='Register')
+
+//-     if showSocialAuth
+//-       hr
+//-       h2.center Social Login
+//-       .login.center
+//-         a(href='/auth/github').text Login with Github!
+
+
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Formulaire
+  //- script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js' integrity='sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+' crossorigin='anonymous' defer='')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css' integrity='sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N' crossorigin='anonymous')
+  link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900'")
+  link(rel="stylesheet", href="/public/style.css")
+body
+    a.logo(href='https://front.codes/' target='_blank')
+      img(src='https://assets.codepen.io/1462889/fcy.png' alt='')
+    .section
+      .container
+        .row.full-height.justify-content-center
+          .col-12.text-center.align-self-center.py-5
+            .section.pb-5.pt-5.pt-sm-2.text-center
+              h6.mb-0.pb-3
+                span Log In 
+                span Sign Up
+              input#reg-log.checkbox(type='checkbox' name='reg-log')
+              label(for='reg-log')
+              .card-3d-wrap.mx-auto
+                .card-3d-wrapper
+                  .card-front
+                    .center-wrap
+                      form.section.text-center
+                        h4.mb-4.pb-3 Log In
+                        .form-group
+                          input#logemail.form-style(type='email' name='logemail' placeholder='Your Email' autocomplete='off')
+                          i.input-icon.uil.uil-at
+                        .form-group.mt-2
+                          input#logpass.form-style(type='password' name='logpass' placeholder='Your Password' autocomplete='off')
+                          i.input-icon.uil.uil-lock-alt
+                        button(type='submit').btn.mt-4 submit
+                        p.mb-0.mt-4.text-center
+                          a.link(href='#0') Forgot your password?
+                  .card-back
+                    .center-wrap
+                      .section.text-center
+                        h4.mb-4.pb-3 Sign Up
+                        .form-group
+                          input#logname.form-style(type='text' name='logname' placeholder='Your Full Name' autocomplete='off')
+                          i.input-icon.uil.uil-user
+                        .form-group.mt-2
+                          input#logemail.form-style(type='email' name='logemail' placeholder='Your Email' autocomplete='off')
+                          i.input-icon.uil.uil-at
+                        .form-group.mt-2
+                          input#logpass.form-style(type='password' name='logpass' placeholder='Your Password' autocomplete='off')
+                          i.input-icon.uil.uil-lock-alt
+                        a.btn.mt-4(href='#') submit

@@ -1,8 +1,9 @@
-const profileRouter = require('./routes/profile');
-const loginRouter = require('./routes/login');
-const register = require('.routes/register');
-const chatRouter = require('.routes/chat');
-const githubRouter = require('./github');
+const profile = require('./profile');
+const login = require('./login');
+const register = require('./register');
+const chat = require('./chat');
+const github = require('./github');
+const ensureAuthenticated = require('./ensureAuth');
 
 module.exports = function (app, myDataBase) {
   app.get('/', (req, res) => {
@@ -17,11 +18,9 @@ module.exports = function (app, myDataBase) {
   });
 
   register(app, myDataBase);
-
-  app.use('/login', loginRouter);
-  app.use('/profile', profileRouter);
-  app.use('/chat', chatRouter);
-  app.use('/auth/github', githubRouter.github);
-  app.use('/auth/github/callback', githubRouter.callback);
+  login(app);
+  profile(app, ensureAuthenticated)
+  chat(app, ensureAuthenticated);
+  github(app);
 };
 

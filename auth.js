@@ -33,7 +33,7 @@ module.exports = function (app, myDataBase) {
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'https://replit.com/@Ate-TougueTougu/boilerplate-advancednode/auth/github/callback'//process.env.CALLBACK_URL
+    callbackURL: 'https://boilerplate-advancednode.ate-touguetougu.repl.co/auth/github/callback'//process.env.CALLBACK_URL
   }, (accessToken, refreshToken, profile, cb) => {
     console.log(profile);
     myDataBase.findOneAndUpdate(
