@@ -1,11 +1,9 @@
-const express = require('express');
-const { getUsers } = require('../services/user.service');
-const router = express.Router();
+const { getUsers } = require("../services/user.service");
 
 /* GET users listing. */
-router.get('/users', (req, res, ) => {
-  // const users = getUsers();
-  res.json({users});
-});
-
-module.exports = router;
+module.exports = (app, route) => {
+  app.get(route, async (req, res) => {
+    const users = await getUsers();
+    res.json(users);
+  });
+};
