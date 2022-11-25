@@ -1,4 +1,4 @@
-require('./dbconfig');
+const connect = require('./dbconfig');
 
 const express = require('express');
 const path = require('path');
@@ -19,12 +19,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 /********************************************************* */
 
+connect();
 /***API ENDPOINTS***************************************** */
 app.use('/', indexRouter);
-app.use('/me', profileRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/signup', signupRouter);
+profileRouter(app, '/me');
+usersRouter(app, '/users');
+loginRouter(app, '/login');
+signupRouter(app, '/signup');
 /********************************************************* */
 
 module.exports = app;

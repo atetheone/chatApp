@@ -3,23 +3,24 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local');
 const ObjectID = require('mongodb').ObjectID;
 const GitHubStrategy = require('passport-github').Strategy;
+const User = require('./models/user.schema');
 
 require('dotenv').config();
 
-module.exports = function (app, myDataBase) {
+module.exports = function (app) {
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });
 
   passport.deserializeUser((id, done) => {
-    myDataBase.findOne({_id: new ObjectID(id)}, (err, doc) => {
+    User.findOne({_id: new ObjectID(id)}, (err, doc) => {
       if (!err) done(null, doc);
     });
   });
 
   passport.use(new LocalStrategy(
     (username, password, done) => {
-      myDataBase.findOne({username: username}, (err, user) => {
+      User.findOne({username: username}, (err, user) => {
         console.log('User '+ username +' attempted to log in.');
         if (err) return done(err);
         if (!user) return done(null, false);
@@ -30,13 +31,14 @@ module.exports = function (app, myDataBase) {
     }
   ));
 
+  let callbackURI = (process.env.PORT || 3333) === 3333 ? 'http://localhost:3333' : 'https://ate-chat.herokuapp.com'
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'https://boilerplate-advancednode.ate-touguetougu.repl.co/auth/github/callback'//process.env.CALLBACK_URL
+    callbackURL: callbackURI + '/auth/github/callback'//process.env.CALLBACK_URL
   }, (accessToken, refreshToken, profile, cb) => {
     console.log(profile);
-    myDataBase.findOneAndUpdate(
+    User.findOneAndUpdate(
       { id: profile.id },
       {
         $setOnInsert: {

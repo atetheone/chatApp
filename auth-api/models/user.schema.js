@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  password: String,
+  hash: String,
+  savedAt: {
+    type: Date,
+    default: new Date().toISOString()
+  }
 });
 
 module.exports = mongoose.model("user", userSchema);
