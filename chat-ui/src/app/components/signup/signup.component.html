@@ -1,1 +1,82 @@
-<p>signup works!</p>
+<div class="container">
+  <div class="row">
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="signup()"
+      novalidate
+      class="col-6 m-auto border border-dark border-opacity-25 rounded-2 py-4 needs-validation"
+    >
+      <h2 class="h2 text-center">SIGN UP</h2>
+      <div class="mb-3">
+        <label for="nameformControl" class="form-label">Name</label>
+        <input
+          type="email"
+          class="form-control"
+          id="nameformControl"
+          formControlName="name"
+          placeholder="Enter your name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="emailformControl" class="form-label">Email address</label>
+        <div class="input-group">
+          <span class="input-group-text" id="inputGroupPrepend2">@</span>
+          <input
+            type="email"
+            class="form-control"
+            id="emailformControl"
+            formControlName="email"
+            placeholder="name@example.com"
+            aria-describedby="inputGroupPrepend2"
+            required
+          />
+          <!-- <div class="invalid-feedback">
+            Looks good!
+          </div> -->
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="passwordformControl" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordformControl"
+          formControlName="password"
+          placeholder="Your password"
+        />
+        <!-- <div class="invalid-feedback">
+          Looks good!
+        </div> -->
+      </div>
+      <div class="mb-5">
+        <label for="cpasswordformControl" class="form-label"
+          >Confirm your password</label
+        >
+        <input
+          type="password"
+          class="form-control"
+          [ngClass]="cpassword === '' ? '' : (cpassword === password) ? 'is-valid' : 'is-invalid'"
+          id="cpasswordformControl"
+          formControlName="cpassword"
+          placeholder="Confirm your password"
+        />
+        <!-- <div class="invalid-feedback">
+          Looks good!
+        </div> -->
+      </div>
+      <button
+        [disabled]="!signupForm.valid"
+        class="btn btn-primary form-control"
+        type="submit"
+      >
+        <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
+        Sign up
+      </button>
+    </form>
+  </div>
+  <div>
+    <pre>
+      {{ signupForm.status }}
+    </pre>
+  </div>
+</div>
