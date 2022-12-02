@@ -1,1 +1,48 @@
-<p>login works!</p>
+<div class="container mt-4">
+    <div class="row">
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        novalidate
+        class="col col-md-9 col-xl-6 m-auto border border-dark border-opacity-25 rounded-2 py-4 needs-validation"
+      >
+        <h2 class="h2 text-center">LOG IN</h2>
+  
+        <mat-form-field class="w-100 mb-2">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Ex. name@example.com"
+            formControlName="email"
+            id="emailformControl"
+          />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 mb-4">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            id="passwordformControl"
+          />
+        </mat-form-field>
+        
+        <button
+          type="submit"
+          class="form-control"
+          mat-raised-button
+          color="primary"
+        >
+          Sign up
+          <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
+        </button>
+      </form>
+    </div>
+    <div>
+      <pre>
+        {{ loginForm.status }}
+      </pre>
+    </div>
+  </div>
+  
