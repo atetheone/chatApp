@@ -8,7 +8,7 @@ module.exports = (app, route) => {
     const result = await login(email, password);
     if (result) 
       res.status(200).json(result);
-    else
-      res.status(403).json({ error: "", msg: "" });
+    else if (result.error)
+      res.status(401).json(result);
   });
 };
