@@ -1,77 +1,72 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <form
       [formGroup]="signupForm"
-      (ngSubmit)="signup()"
+      (ngSubmit)="onSignup()"
       novalidate
-      class="col-6 m-auto border border-dark border-opacity-25 rounded-2 py-4 needs-validation"
+      class="col col-md-9 col-xl-6 m-auto border border-dark border-opacity-25 rounded-2 py-4 needs-validation"
     >
       <h2 class="h2 text-center">SIGN UP</h2>
-      <div class="mb-3">
-        <label for="nameformControl" class="form-label">Name</label>
+
+      <mat-form-field class="w-100 mb-2">
+        <mat-label>Name</mat-label>
         <input
-          type="email"
-          class="form-control"
-          id="nameformControl"
+          matInput
+          placeholder="Ex. John Doe"
           formControlName="name"
-          placeholder="Enter your name"
+          id="nameformControl"
         />
-      </div>
-      <div class="mb-3">
-        <label for="emailformControl" class="form-label">Email address</label>
-        <div class="input-group">
-          <span class="input-group-text" id="inputGroupPrepend2">@</span>
-          <input
-            type="email"
-            class="form-control"
-            id="emailformControl"
-            formControlName="email"
-            placeholder="name@example.com"
-            aria-describedby="inputGroupPrepend2"
-            required
-          />
-          <!-- <div class="invalid-feedback">
-            Looks good!
-          </div> -->
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="passwordformControl" class="form-label">Password</label>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 mb-2">
+        <mat-label>Email</mat-label>
         <input
+          matInput
+          placeholder="Ex. name@example.com"
+          formControlName="email"
+          id="emailformControl"
+        />
+        <mat-error *ngIf="email?.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 mb-2">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
           type="password"
-          class="form-control"
-          id="passwordformControl"
           formControlName="password"
-          placeholder="Your password"
+          id="passwordformControl"
         />
-        <!-- <div class="invalid-feedback">
-          Looks good!
-        </div> -->
-      </div>
-      <div class="mb-5">
-        <label for="cpasswordformControl" class="form-label"
-          >Confirm your password</label
-        >
+        <mat-error *ngIf="password?.touched && password?.errors">
+          Your password must have lower case, upper case and numeric characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 mb-5">
+        <mat-label>Confirm the password</mat-label>
         <input
+          matInput
           type="password"
-          class="form-control"
-          [ngClass]="cpassword === '' ? '' : (cpassword === password) ? 'is-valid' : 'is-invalid'"
-          id="cpasswordformControl"
+          placeholder="Ex. John Doe"
           formControlName="cpassword"
-          placeholder="Confirm your password"
+          id="cpasswordformControl"
         />
-        <!-- <div class="invalid-feedback">
-          Looks good!
-        </div> -->
-      </div>
+      </mat-form-field>
+
       <button
-        [disabled]="!signupForm.valid"
-        class="btn btn-primary form-control"
         type="submit"
+        class="form-control"
+        mat-raised-button
+        color="primary"
       >
-        <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
         Sign up
+        <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
       </button>
+      <div class="mt-2">
+        Already have an account? <a routerLink="/login">Login</a>
+      </div>
     </form>
   </div>
   <div>
