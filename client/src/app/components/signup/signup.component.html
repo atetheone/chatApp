@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  <div class="row form-wrapper border border-dark border-opacity-25 rounded-2 col col-md-9 col-xl-6 m-auto">
+    <h2 class="title-signup h2 text-center">SIGN UP</h2>
+    <form
+    [formGroup]="signupForm"
+    (ngSubmit)="onSignup()"
+    novalidate
+    class="needs-validation"
+  >
+
+    <mat-form-field class="w-100 mb-2">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        placeholder="Ex. John Doe"
+        formControlName="name"
+        id="nameformControl"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Ex. name@example.com"
+        formControlName="email"
+        id="emailformControl"
+      />
+      <mat-error *ngIf="email?.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        id="passwordformControl"
+      />
+      <mat-error *ngIf="password?.touched && password?.errors">
+        Your password must have lower case, upper case and numeric characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-5">
+      <mat-label>Confirm the password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Ex. John Doe"
+        formControlName="cpassword"
+        id="cpasswordformControl"
+      />
+    </mat-form-field>
+
+    <button
+      id="signupButton"
+      type="submit"
+      class="form-control"
+      mat-raised-button
+      color="primary"
+    >
+      Sign up
+      <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
+    </button>
+    <div class="mt-2">
+      Already have an account? <a routerLink="/login">Login</a>
+    </div>
+  </form>
+</div>
