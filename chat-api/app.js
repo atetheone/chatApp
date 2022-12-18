@@ -1,20 +1,19 @@
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const { Server } = require("socket.io");
 
-const app = express();
+const io = new Server({ /* options */ });
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+io.on("connection", (socket) => {
+  console.log('new socket connection established\n' + socket);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+  socket.emit('message', 'Welcome to application');
 
-module.exports = app;
+  socket.on('disconnect', () => {
+
+  });
+});
+
+
+
+module.exports = io;
