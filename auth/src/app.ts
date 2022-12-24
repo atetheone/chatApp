@@ -1,15 +1,16 @@
-require('./dbconfig')();
+require('../dbconfig')();
 
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
-const loginRouter = require('./routes/login');
-const signupRouter = require('./routes/signup');
-const profileRouter = require('./routes/profile');
-const usersRouter = require('./routes/users');
-const indexRouter = require('./routes/index');
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as cors from 'cors';
+
+import {
+    defaultRouter,
+    loginRouter,
+    signupRouter,
+    profileRouter,
+    usersRouter
+} from './routes';
 const app = express();
 
 
@@ -22,7 +23,7 @@ app.use(cors())
 /********************************************************* */
 
 /***API ENDPOINTS***************************************** */
-app.use('/', indexRouter);
+app.use('/', defaultRouter);
 profileRouter(app, '/me');
 usersRouter(app, '/users');
 loginRouter(app, '/login');

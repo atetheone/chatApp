@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
-const User = require("../models/user.schema.js");
+import {User } from "../models/user.schema";
 const jwt = require("jsonwebtoken");
 
-const login = async (email, password) => {
+export const login = async (email: string, password: string) => {
   try {
     const user = await User.findOne({ email }).select({ has: 0, __v: 0 });
     if (!user) {
@@ -29,7 +29,7 @@ const login = async (email, password) => {
   }
 };
 
-const signup = async (name, email, pass) => {
+export const signup = async (name: string, email: string, pass: string) => {
   let user;
   try {
     const userFound = await User.findOne({ email });
@@ -51,17 +51,16 @@ const signup = async (name, email, pass) => {
   return {name, email};
 };
 
-const getUsers = async () => {
+export const getUsers = async () => {
   return await User.find({}).select({ hash: 0, __v: 0, _id: 0 });
 };
 
-const getProfile = async (token) => {
-  // return await User.findOne();
-};
+export const deleteAccount = async (email: string) => {
+  try {
+    await User.deleteOne({ email });
 
-module.exports = {
-  login,
-  signup,
-  getUsers,
-  getProfile,
+    return {msg: "User deleted successfully", status: 200};
+  } catch (e) {
+    console.log(e);
+  }
 };

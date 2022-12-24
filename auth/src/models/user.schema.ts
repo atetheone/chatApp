@@ -16,5 +16,5 @@ const userSchema = new mongoose.Schema({
     default: new Date().toISOString()
   }
 });
-
-module.exports = mongoose.model("user", userSchema);
+const UserModel = mongoose.model("user", userSchema);
+export { UserModel as User };

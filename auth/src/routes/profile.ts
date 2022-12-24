@@ -1,6 +1,7 @@
+import { Application } from "express";
 
 /* GET users listing. */
-module.exports = (app, route) => {
+export const profileRouter = (app: Application, route: string) => {
   app.get(route, (req, res) => {
     res.json({
       user: "atetheone",

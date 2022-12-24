@@ -1,7 +1,9 @@
-const { signup } = require("../services/user.service");
+import { Application } from "express";
+
+import { signup } from "../services/user.service";
 
 /* GET users listing. */
-module.exports = (app, route) => {
+export const signupRouter = (app: Application, route: string) => {
   app.post(route, async (req, res) => {
     console.log("POST /signup...");
     const { name, email, password } = req.body;
