@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import { login } from "../services/user.service";
 
-const router = express.Router();
+const router = Router();
 
 /* POST /auth/login listing. */
 

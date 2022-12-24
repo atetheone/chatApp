@@ -5,7 +5,7 @@ const router = Router();
 
 /* GET users listing. */
 
-router.post("/auth/signup", async (req, res) => {
+router.post("/auth/signup", async (req: Request, res: Response) => {
   console.log("POST /signup...");
   const { name, email, password } = req.body;
   const user = await signup(name, email, password);
