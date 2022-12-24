@@ -1,10 +1,13 @@
-import { Application } from "express";
+import { Request, Response, Router } from "express";
 import { getUsers } from "../services/user.service";
 
+const router = Router();
 /* GET users listing. */
-export const usersRouter = (app: Application, route: string) => {
-  app.get(route, async (req, res) => {
-    const users = await getUsers();
-    res.json(users);
-  });
-};
+
+router.get("/users", async (req, res) => {
+  const users = await getUsers();
+  res.json(users);
+});
+
+export { router as usersRouter };
+

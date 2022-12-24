@@ -1,8 +1,8 @@
 require('../dbconfig')();
 
-import * as express from 'express';
-import * as logger from 'morgan';
-import * as cors from 'cors';
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
 
 import {
     defaultRouter,
@@ -23,11 +23,11 @@ app.use(cors())
 /********************************************************* */
 
 /***API ENDPOINTS***************************************** */
-app.use('/', defaultRouter);
-profileRouter(app, '/me');
-usersRouter(app, '/users');
-loginRouter(app, '/login');
-signupRouter(app, '/signup');
+app.use(defaultRouter);
+app.use(loginRouter);
+app.use(profileRouter);
+app.use(usersRouter);
+app.use(signupRouter);
 /********************************************************* */
 
 module.exports = app;

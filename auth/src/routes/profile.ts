@@ -1,12 +1,15 @@
-import { Application } from "express";
+import express, { Request, Response, Router } from "express";
 
+const router = Router();
 /* GET users listing. */
-export const profileRouter = (app: Application, route: string) => {
-  app.get(route, (req, res) => {
-    res.json({
-      user: "atetheone",
-      email: "atevirran@gmail.com",
-      name: "Até Tougué Aristide",
-    });
+
+router.get("/users/me", (req: Request, res: Response) => {
+  res.json({
+    user: "atetheone",
+    email: "atevirran@gmail.com",
+    name: "Até Tougué Aristide",
   });
-};
+});
+
+export { router as profileRouter };
+

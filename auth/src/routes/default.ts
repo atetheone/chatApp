@@ -1,6 +1,5 @@
-import * as express from "express";
-import { Request, Response } from "express";
-const router = express.Router();
+import { Router, Request, Response } from "express";
+const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
   const result: any = {

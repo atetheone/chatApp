@@ -25,7 +25,8 @@ export const login = async (email: string, password: string) => {
     console.log(user.name)
     return {token, ...user._doc};
   } catch (e) {
-    console.log({ error: e });
+    console.error(e);
+    throw e;
   }
 };
 
