@@ -1,19 +1,22 @@
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const logger = require('morgan');
 
-const { Server } = require("socket.io");
+const app = express();
 
-const io = new Server({ /* options */ });
-
-io.on("connection", (socket) => {
-  console.log('new socket connection established\n' + socket);
-
-  socket.emit('message', 'Welcome to application');
-
-  socket.on('disconnect', () => {
-
-  });
-});
+/** MIDDLEWARES *******************/
+app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({type: true}));
+/************************************* */
 
 
+/*** ENDPOINTS  ***********************/
 
-module.exports = io;
+
+/**************************************/
+
+
+module.exports = app;
