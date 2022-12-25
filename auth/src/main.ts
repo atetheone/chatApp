@@ -6,7 +6,7 @@
 
 import { Application } from "express";
 
-const app: Application = require('./src/app');
+const app: Application = require('./app');
 const debug = require('debug')('auth-api:server');
 const http = require('http');
 

@@ -1,9 +1,8 @@
-require('../dbconfig')();
+require('./dbconfig')();
 
 import express from 'express';
-import logger from 'morgan';
+import morgan from 'morgan';
 import cors from 'cors';
-
 import {
     defaultRouter,
     loginRouter,
@@ -11,11 +10,13 @@ import {
     profileRouter,
     usersRouter
 } from './routes';
-const app = express();
+import { errorHandler } from './middlewares/error-handler';
+
+export const app = express();
 
 
 /*** MIDDLEWARES***************************************** */
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
@@ -29,5 +30,6 @@ app.use(profileRouter);
 app.use(usersRouter);
 app.use(signupRouter);
 /********************************************************* */
+app.use(errorHandler);// error handler middleware
 
 module.exports = app;
