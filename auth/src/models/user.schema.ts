@@ -1,6 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose, { model, Schema } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+interface IUser {
+  email: string;
+  hash: string;
+  name: string;
+  savedAt: string;
+}
+
+const userSchema = new Schema<IUser>({
   name: {
     type: String,
     required: true
@@ -12,9 +19,9 @@ const userSchema = new mongoose.Schema({
   },
   hash: String,
   savedAt: {
-    type: Date,
+    type: String,
     default: new Date().toISOString()
   }
 });
-const UserModel = mongoose.model("user", userSchema);
+const UserModel = model<IUser>("user", userSchema);
 export { UserModel as User };

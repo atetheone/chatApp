@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 export const login = async (email: string, password: string) => {
   try {
-    const user = await User.findOne({ email }).select({ has: 0, __v: 0 });
+    const user = await User.findOne({ email }).select({  __v: 0, _id: 0 });
     if (!user) {
       // email not found
       return { error: "CREDENTIALS_INVALID", msg: "Email/Password invalid" };
@@ -23,10 +23,10 @@ export const login = async (email: string, password: string) => {
       expiresIn: '1d'
     });
     console.log(user.name)
-    return {token, ...user._doc};
+    return {token, user};
   } catch (e) {
     console.error(e);
-    throw e;
+    return {error: e}
   }
 };
 
@@ -38,18 +38,19 @@ export const signup = async (name: string, email: string, pass: string) => {
       return { error: "OPERATION_FORBIDDEN_ERROR", msg: "User already in DB" };
     }
     const hash = await bcrypt.hash(pass, 12);
-    user = User({
+    user = new User({
       name,
       email,
-      hash,
+      hash
     });
 
     await user.save();
   } catch (e) {
     console.error({ error: e });
+    return {error: e};
   }
 
-  return {name, email};
+  return {status: 201, success: true, user: { name, email }};
 };
 
 export const getUsers = async () => {
