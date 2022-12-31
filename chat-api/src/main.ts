@@ -1,19 +1,15 @@
-#!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+import { Application } from "express";
 
-const app = require('../app');
-const debug = require('debug')('chat-api:server');
+const app: Application = require('./app');
+const debug = require('debug')('auth-api:server');
 const http = require('http');
-const io = require('../app');
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3001');
+const port = normalizePort(process.env.PORT || '3100');
 
 /**
  * Create HTTP server.
@@ -21,7 +17,7 @@ const port = normalizePort(process.env.PORT || '3001');
 
 const server = http.createServer(app);
 
-io.attach(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -34,7 +30,7 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val: string) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -54,7 +50,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error: any) {
   if (error.syscall !== 'listen') {
     throw error;
   }
