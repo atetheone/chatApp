@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-uri-config
+data:
+  # property-like keys; each key maps to a simple value
+  MONGO_URI: "mongodb://auth-mongo-srv:27017/chat-users?retryWrites=true&w=majority"

@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: chattime.com
+      http:
+        paths:
+          - path: /api/auth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+          - path: /api/chat/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-api-srv
+                port:
+                  number: 3100
+          - path: /api/broker/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: event-broker-srv
+                port:
+                  number: 3900
+
