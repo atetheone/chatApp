@@ -9,7 +9,6 @@ export const errorHandler = (
 ) => {
 
   if (err instanceof CustomError) {
-    console.log(`handling this error as a database connection error`);
 		return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 

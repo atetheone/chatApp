@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/api/auth', (req: Request, res: Response) => {
   const result: any = {
     'app': "Chattime",
     'msg': "Welcome to my chat app"

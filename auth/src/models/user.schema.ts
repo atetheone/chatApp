@@ -22,6 +22,16 @@ const userSchema = new Schema<IUser>({
     type: String,
     default: new Date().toISOString()
   }
+},
+{
+  toJSON: {
+    transform(doc, ret, options) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.hash;
+      delete ret.__v;
+    },
+  }
 });
 const UserModel = model<IUser>("user", userSchema);
 export { UserModel as User };

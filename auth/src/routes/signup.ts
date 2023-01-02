@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { signup } from "../services/user.service";
-import { BadRequestError, DatabaseConnectionError, RequestValidationError } from "../errors";
+import { validateRequest } from "../middlewares";
+import { BadRequestError } from "../errors";
 
 const router = Router();
 
@@ -16,32 +17,21 @@ router.post(
       .trim()
       .isLength({ min: 6 })
       .withMessage("Password must have at least 6 characters"),
-    body("name")
-      .isString()
-      .not()
-      .isEmpty()
+    body("name").isString().notEmpty(),
   ],
+  validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
+    console.log("POST /signup...");
 
-    if (!errors.isEmpty()) {
-      // request validation error
-      throw new RequestValidationError(errors.array());
-
-    } else {
-      console.log("POST /signup...");
-      const { name, email, password } = req.body;
-      const user = await signup(name, email, password);
-      if (user) {
-        console.log({ user: user });
-        if (!user.error) res.status(201).json(user);
-        else {
-          if (user.error === "OPERATION_FORBIDDEN_ERROR") 
-            throw new BadRequestError("Email in use");
-          throw new BadRequestError(JSON.stringify(user.error));
-            //res.status(403).json(user);
-        }
-      }
+    const { name, email, password } = req.body;
+    const user = await signup(name, email, password);
+    console.log({ user: user });
+    if (!user.error) res.status(201).json(user);
+    else {
+      if (user.error === "USED_EMAIL")
+        throw new BadRequestError("Email already used");
+      throw new BadRequestError(JSON.stringify(user.error));
+      //res.status(403).json(user);
     }
   }
 );

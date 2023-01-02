@@ -1,34 +1,41 @@
-require("./startDB")();
 import express from "express";
 import "express-async-errors";
 import morgan from "morgan";
 import cors from "cors";
+import cookieSession  from "cookie-session";
+
 import {
   defaultRouter,
   loginRouter,
   signupRouter,
-  profileRouter,
+  currentUserRouter,
   usersRouter,
+  signoutRouter,
 } from "./routes";
-import { errorHandler } from "./middlewares/error-handler";
+import { errorHandler } from "./middlewares";
 import { NotFoundError } from "./errors";
 
 export const app = express();
 
+// app.set('trust proxy', true)
 /*** MIDDLEWARES***************************************** */
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-// app.use(cookieParser());
+app.use(cookieSession({
+  signed: false,
+  secure: false
+}))
 /********************************************************* */
 
 /***API ENDPOINTS***************************************** */
 app.use(defaultRouter);
 app.use(loginRouter);
-app.use(profileRouter);
+app.use(currentUserRouter);
 app.use(usersRouter);
 app.use(signupRouter);
+app.use(signoutRouter);
 
 app.all("*", () => {
 	throw new NotFoundError();
@@ -36,4 +43,4 @@ app.all("*", () => {
 /********************************************************* */
 app.use(errorHandler); // error handler middleware
 
-module.exports = app;
+export default app;

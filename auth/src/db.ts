@@ -3,7 +3,8 @@ require("dotenv").config();
 import mongoose from "mongoose";
 const MONGO_URI = process.env.MONGO_URI || "";
 
-module.exports =  async () => {
+mongoose.set("strictQuery", false);
+export const startDB = async () => {
   try {
     const db = await mongoose.connect(MONGO_URI);
     if (db) {
@@ -16,6 +17,8 @@ module.exports =  async () => {
     console.log({
       error: "DB_CONNECT_ERROR",
       msg: "Unable to connect to the DB",
+      stack: JSON.stringify(e)
     });
+    throw Error("DB_CONNECT_ERROR");
   }
 };
