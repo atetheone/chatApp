@@ -18,7 +18,7 @@ router.post(
     body("password")
       .isString()
       .trim()
-      .isLength({ min: 6 })
+      .isLength({ min: 4 })
       .withMessage("Password must have at least 6 characters")
   ],
   validateRequest,

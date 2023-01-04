@@ -9,23 +9,23 @@ const router = Router();
 /* POST /auth/signup . */
 
 router.post(
-  "/auth/signup",
+  "/api/auth/signup",
   [
     body("email").isString().isEmail().withMessage("Email must be valid"),
     body("password")
       .isString()
       .trim()
-      .isLength({ min: 6 })
+      .isLength({ min: 4 })
       .withMessage("Password must have at least 6 characters"),
     body("name").isString().notEmpty(),
   ],
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("POST /signup...");
+    // console.log("POST /signup...");
 
     const { name, email, password } = req.body;
     const user = await signup(name, email, password);
-    console.log({ user: user });
+    // console.log({ user: user });
     if (!user.error) res.status(201).json(user);
     else {
       if (user.error === "USED_EMAIL")
