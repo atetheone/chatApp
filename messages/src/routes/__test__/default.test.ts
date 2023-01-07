@@ -3,7 +3,7 @@ import request from "supertest";
 
 describe("Default test", () => {
 
-  it('Returns a json with appName & message properties when going to localhost:3100', async () => {
+  it('Returns a json with appName & message properties when receiving a GET /', async () => {
     const resp = await request(app)
       .get('/')
       .expect(200);
