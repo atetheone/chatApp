@@ -26,13 +26,12 @@ router.post(
     const { name, email, password } = req.body;
     const user = await signup(name, email, password);
     // console.log({ user: user });
-    if (!user.error) res.status(201).json(user);
-    else {
-      if (user.error === "USED_EMAIL")
-        throw new BadRequestError("Email already used");
-      throw new BadRequestError(JSON.stringify(user.error));
-      //res.status(403).json(user);
-    }
+    if (!user.error) return res.status(201).json(user);
+
+    if (user.error === "USED_EMAIL")
+      throw new BadRequestError("Email already used");
+    // throw new BadRequestError(JSON.stringify(user.error));
+    //res.status(403).json(user);
   }
 );
 

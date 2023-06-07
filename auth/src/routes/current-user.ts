@@ -6,11 +6,11 @@ const router = Router();
 /* GET users listing. */
 
 router.get(
-  "/api/auth/current-user",
+  "/api/auth/currentuser", 
   currentUser,
   requireAuth,
   (req: Request, res: Response) => {
-    res.json({ currentUser: req.currentUser || null });
+    res.json(req.currentUser || null);
   }
 );
 

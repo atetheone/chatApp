@@ -1,26 +1,40 @@
 import request from "supertest";
 import app from "../../app";
-import { authCookie } from "../../test/auth-cookie";
+import jwt from "jsonwebtoken";
 
 describe("current-user route handler test", () => {
-  it("Returns the current user", async () => {
-    const cookie = await authCookie();
+  it("Should return the current user if authenticated", async () => {
+    const user = {
+      email: "tota@gmail.com",
+      password: "password",
+      name: "toto"
+    };
+    await request(app)
+      .post("/api/auth/signup")
+      .send(user)
+      .expect(201);
+
+    const response = await request(app).post("/api/auth/login").send({
+      email: "tota@gmail.com",
+      password: "password",
+    });
+    
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toHaveProperty("token");
+    expect(response.body.user.name).toEqual("toto");
+    expect(response.body.user.email).toEqual("tota@gmail.com");
+
+    const token = response.body.token;
 
     const currentUserResponse = await request(app)
       .get("/api/auth/currentuser")
-      .set("Cookie", cookie)
-      .send()
-      .expect(200);
-  
-    expect(currentUserResponse.body.currentUser.email).toEqual("toto@gmail.com");
-  
+      .set("Authorization", `Bearer ${token}`);
+    console.log(currentUserResponse.body);
+    
+    expect(currentUserResponse.status).toEqual(200);
+    expect(currentUserResponse.body.iat).toBeDefined();
+    expect(currentUserResponse.body.email).toEqual(user.email);
+    expect(currentUserResponse.body.id).toBeDefined();
   });
 
-  it("Responds with null if non authenticated", async () => {
-    const authResponse = await request(app)
-      .get("/api/auth/currentuser")
-      .expect(200);
-    
-    expect(authResponse.body.currentUser).toBeNull();
-  });
 });

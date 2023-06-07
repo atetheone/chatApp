@@ -18,7 +18,7 @@ router.post(
     body("password")
       .isString()
       .trim()
-      .isLength({ min: 4 })
+      .isLength({ min: 6 })
       .withMessage("Password must have at least 6 characters")
   ],
   validateRequest,
@@ -27,14 +27,15 @@ router.post(
 
     const result = await login(email, password);
     if (!result.error) {
-      req.session = {
-        jwt: result.token
-      };
-      res.status(200).json(result.user);
+      // req.session = {
+      //   jwt: result.token
+      // };
+      return res.status(200).json(result);
     }
-    else if (result.error === "CREDENTIALS_INVALID")
+    if (result.error === "CREDENTIALS_INVALID")
       throw new BadRequestError("Invalid credentials");
     else 
       res.status(401).json(result);
 });
+
 export { router as loginRouter };
