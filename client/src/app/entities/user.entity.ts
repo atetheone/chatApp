@@ -1,6 +1,6 @@
-export default interface User {
-    name: string,
-    email: string,
-    token: string,
-    saveAt: string
+export interface User {
+    name: string;
+    email: string;
+    id: string;
+    savedAt: Date;
 };
