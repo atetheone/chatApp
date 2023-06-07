@@ -1,1 +1,31 @@
-<p>chat-dialog works!</p>
+<div class="chat-dialog w-100">
+  <ul class="messages d-flex flex-column">
+    <li class="left">Bonjour</li>
+    <li class="right"> Oui bonjour comment vas-tu ?</li>
+    <li class="left">Je vais bien et toi?</li>
+    <li class="right">Moi aussi ça va.</li>
+    <li class="left">Bonjour</li>
+    <li class="right"> Oui bonjour comment vas-tu ?</li>
+    <li class="left">Je vais bien et toi?</li>
+    <li class="right">Moi aussi ça va.</li>
+    <li class="left">Bonjour</li>
+    <li class="right"> Oui bonjour comment vas-tu ?</li>
+    <li class="left">Je vais bien et toi?</li>
+    <li class="right">Moi aussi ça va.</li>
+    <li class="left">Bonjour</li>
+    <li class="right"> Oui bonjour comment vas-tu ?</li>
+    <li class="left">Je vais bien et toi?</li>
+    <li class="right">Moi aussi ça va.</li>
+    <li class="left">Bonjour</li>
+    <li class="right"> Oui bonjour comment vas-tu ?</li>
+    <li class="left">Je vais bien et toi?</li>
+    <li class="right">Moi aussi ça va.</li>
+  </ul>
+
+  <form class="input-send-message d-flex" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+    <input mat-input type="text" class="form-control" formControlName="message">
+
+    <!-- </textarea> -->
+    <button mat-button mat-raised-button class="mx-1 send-button" type="submit" color="primary">Send</button>
+  </form>
+</div>

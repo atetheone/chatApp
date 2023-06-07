@@ -1,22 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import User from 'src/app/entities/user.entity';
+import { User } from 'src/app/entities';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.sass']
+  styleUrls: ['./signup.component.sass'],
 })
 export class SignupComponent implements OnInit {
-
   signupForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(200)]],
-    email: ['', [Validators.required, Validators.email, Validators.maxLength(200)]],
-    password: ['', [Validators.required, this.createPasswordStrengthValidator()]],
-    cpassword: ['', [Validators.required, this.passwordConfirmValidator()]]
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(200)],
+    ],
+    password: [
+      '',
+      [Validators.required, this.createPasswordStrengthValidator()],
+    ],
+    cpassword: ['', [Validators.required, this.passwordConfirmValidator()]],
   });
 
   constructor(
@@ -24,10 +36,9 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get password() {
     return this.signupForm.get('password');
@@ -45,39 +56,34 @@ export class SignupComponent implements OnInit {
     return this.signupForm.get('email');
   }
 
-
   createPasswordStrengthValidator(): ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
 
-        const value = control.value;
+      if (!value) {
+        return null;
+      }
 
-        if (!value) {
-            return null;
-        }
+      const hasUpperCase = /[A-Z]+/.test(value);
+      const hasLowerCase = /[a-z]+/.test(value);
+      const hasNumeric = /[0-9]+/.test(value);
 
-        const hasUpperCase = /[A-Z]+/.test(value);
-        const hasLowerCase = /[a-z]+/.test(value);
-        const hasNumeric = /[0-9]+/.test(value);
+      const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
 
-        const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
-
-        return !passwordValid ? {passwordStrength:true}: null;
-    }
+      return !passwordValid ? { passwordStrength: true } : null;
+    };
   }
 
   passwordConfirmValidator(): ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const passValue = this.signupForm?.get('password')?.value,
+        confValue = control.value;
 
-        const passValue = this.signupForm?.get('password')?.value, confValue = control.value;
+      const passwordValid = passValue === confValue;
 
-        const passwordValid = passValue === confValue;
-
-        return !passwordValid ? {passwordCorfirmed:true}: null;
-    }
+      return !passwordValid ? { passwordCorfirmed: true } : null;
+    };
   }
-
-
-
 
   onSignup() {
     const user = {
@@ -101,5 +107,4 @@ export class SignupComponent implements OnInit {
       }
     });
   }
-
 }

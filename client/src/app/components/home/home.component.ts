@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { first, Observable } from 'rxjs';
-import User from 'src/app/entities/user.entity';
+import { User } from 'src/app/entities';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,12 +15,13 @@ export class HomeComponent implements OnInit {
   users : User[] = [];
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('currentUser')) {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
+      this.currentUser = this.authService.currentUser;
     }
 
     this.userService.getUsers()

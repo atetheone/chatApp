@@ -1,0 +1,38 @@
+chat-dialog
+  background: #6792c3 !important
+  min-height: 80vh
+  .input-send-message
+    position: relative
+    top: 200px
+
+.input-send-message
+  background: rgba(0, 0, 0, 0.15)
+  padding: 0.25rem
+  position: fixed
+  width: 76%
+  bottom: 0
+  right: 0
+  display: flex
+  height: 3rem
+  box-sizing: border-box
+  -webkit-backdrop-filter: blur(10px)
+  backdrop-filter: blur(10px)
+
+.right
+  text-align: right
+
+.left
+  text-align: left
+
+.messages
+  list-style-type: none
+  margin: 0
+  padding: 0
+  // min-height: 70vh
+  // height: 70vh
+
+  li 
+    margin: 10px 0
+    padding: 0.5rem 1rem
+    &:nth-child(odd) 
+      background: #efefef
