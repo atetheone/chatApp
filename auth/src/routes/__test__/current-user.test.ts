@@ -1,40 +1,47 @@
 import request from "supertest";
 import app from "../../app";
-import jwt from "jsonwebtoken";
 
 describe("current-user route handler test", () => {
-  it("Should return the current user if authenticated", async () => {
+  it("Should return the current user if authenticated", () => {
     const user = {
       email: "tota@gmail.com",
       password: "password",
       name: "toto"
     };
-    await request(app)
+
+    request(app)
       .post("/api/auth/signup")
       .send(user)
-      .expect(201);
+      .expect(201)
+      .expect((response) => {
+        expect(response.body.email).toEqual(user.email);
+        expect(response.body.name).toEqual(user.name);
+      });
 
-    const response = await request(app).post("/api/auth/login").send({
+    let token = "";
+    request(app).post("/api/auth/login").send({
       email: "tota@gmail.com",
       password: "password",
+    }).expect(200)
+    .expect((response) => {
+      expect(response.body).toHaveProperty("token");
+      expect(response.body.user.name).toEqual("toto");
+      expect(response.body.user.email).toEqual("tota@gmail.com");
+      token = response.body.token;
     });
     
-    expect(response.statusCode).toEqual(200);
-    expect(response.body).toHaveProperty("token");
-    expect(response.body.user.name).toEqual("toto");
-    expect(response.body.user.email).toEqual("tota@gmail.com");
 
-    const token = response.body.token;
-
-    const currentUserResponse = await request(app)
+    request(app)
       .get("/api/auth/currentuser")
-      .set("Authorization", `Bearer ${token}`);
-    console.log(currentUserResponse.body);
+      .set("Authorization", `Bearer ${token}`)
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toHaveProperty("email");
+        expect(response.body).toHaveProperty("id");
+        expect(response.body).toHaveProperty("iat");
+        expect(response.body.email).toEqual(user.email);
+      });
     
-    expect(currentUserResponse.status).toEqual(200);
-    expect(currentUserResponse.body.iat).toBeDefined();
-    expect(currentUserResponse.body.email).toEqual(user.email);
-    expect(currentUserResponse.body.id).toBeDefined();
   });
 
 });
