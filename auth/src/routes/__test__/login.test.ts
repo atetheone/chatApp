@@ -65,13 +65,5 @@ describe("Login tests", () => {
         expect(response.body.user.savedAt).toBeDefined();
         expect(response.body.token).toBeDefined();
       });
-
-    // expect(response.status).toEqual(200);
-    // expect(response.body).toHaveProperty("token");
-    // expect(response.body.user.name).toEqual("toto");
-    // expect(response.body.user.email).toEqual("tota@gmail.com");
-    // expect(response.body.user.id).toBeDefined();
-    // expect(response.body.user.savedAt).toBeDefined();
-    // expect(response.body.token).toBeDefined();
   });
 });

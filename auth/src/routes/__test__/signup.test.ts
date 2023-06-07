@@ -10,7 +10,15 @@ describe("Signup tests", () => {
         password: "123456",
         name: "Toto tito",
       })
-      .expect(201);
+      .expect(201)
+      .expect((response) => {
+        console.log(response.body);
+        expect(response.body.success).toEqual(true);
+        expect(response.body.user.name).toEqual("toto");
+        expect(response.body.user.email).toEqual("toto@toto.com");
+        expect(response.body.user).toHaveProperty("id");
+        expect(response.body.user).toHaveProperty("savedAt");
+      });
   });
 
   it("Returns a 400 with an invalid email", () => {

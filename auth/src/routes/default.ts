@@ -9,4 +9,4 @@ router.get('/api/auth', (req: Request, res: Response) => {
   res.json(result);
 });
 
-export {router as defaultRouter };
+export { router as defaultRouter };
