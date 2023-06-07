@@ -1,53 +1,55 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import User from '../entities/user.entity';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { 
+  UserLogin,
+  UserSignup,
+  LoginResponse,
+  SignupResponse,
+  User
+} from '../entities';
  
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  private currentUserSubject ?: BehaviorSubject<any>;
-  public currentUser ?: Observable<User>;
+  public isLoggedIn: boolean = false;
+  public currentUser ?: User;
 
   constructor(private http: HttpClient) { }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject?.value;
-}
-
-
-  signup(user: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUri}/signup`, user)
-      .pipe(map(
-        user =>  {
-          console.log(user);
-        }
-      ));
+  public getCurrentUser(): Observable<User> {
+    return this.http.get<any>(`${environment.apiUri}/api/auth/currentuser`, {
+      
+    })
+      .pipe(map(user => {
+        this.currentUser =  user.currentUser;
+        return user.currentUser;
+      }));
+    
   }
 
-  login(userAuth: { email: string; password: string; }): Observable<any> {
-    return this.http.post<User>(`${environment.apiUri}/login`, userAuth)
-      .pipe(map(
-        user =>  {
-          console.log(user);
-          if (user && user.token) {
-            // user logged in
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject?.next(user);
+  public loggedIn(): boolean {
+    return localStorage.getItem('jwt_token') !== null;
+  }
 
-          }
-          return user;
-        }
-      ))
+  signup(user: UserSignup): Observable<SignupResponse> {
+    return this.http.post<SignupResponse>(`${environment.apiUri}/api/auth/signup`, user);
+  }
+
+  login(userAuth: UserLogin): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.apiUri}/api/auth/login`, userAuth)
+      .pipe(map(user => {
+        this.isLoggedIn = true;
+        return user;
+      }));
+      
   }
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject?.next(null);
-}
+    localStorage.removeItem('jwt_token');
+  }
 }
