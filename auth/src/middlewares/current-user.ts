@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 interface UserPayload {
 	id: string;
-	username: string;
+	email: string;
 	iat: number;
 	exp: number;
 }
@@ -21,16 +21,16 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session?.jwt) {
-    return next();
-  }
-  const JWT_SECRET = Buffer.from(process.env.JWT_SECRET || "").toString();
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(" ")[1];
+  const JWT_SECRET = process.env.JWT_SECRET!;
 
+  if (!token) return next();
   try {
-    const payload = jwt.verify(req.session.jwt, JWT_SECRET) as UserPayload;
-		// console.log("JWT payload: ", payload)
+    const payload = jwt.verify(token, JWT_SECRET) as UserPayload;
     req.currentUser = payload;
-  } catch (err) {}
-
+  } catch (err) {
+    console.error(err);
+  }
   next();
 };

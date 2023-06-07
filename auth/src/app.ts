@@ -11,6 +11,7 @@ import {
   currentUserRouter,
   usersRouter,
   signoutRouter,
+  eventRouter,
 } from "./routes";
 import { errorHandler } from "./middlewares";
 import { NotFoundError } from "./errors";
@@ -36,6 +37,7 @@ app.use(currentUserRouter);
 app.use(usersRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
+app.use(eventRouter);
 
 app.all("*", () => {
 	throw new NotFoundError();

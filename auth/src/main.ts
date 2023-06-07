@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 if (!process.env.JWT_SECRET) throw Error("JWT_SECRET must be defined!!!");
 
-const start = async () => {
+(async () => {
 
   try {
     await startDB();
@@ -29,9 +29,9 @@ const start = async () => {
   });
   server.on("error", onError);
   server.on("listening", onListening);
-};
+})();
 
-start();
+// start();
 
 
 /****************************** */
