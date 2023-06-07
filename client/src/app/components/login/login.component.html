@@ -1,6 +1,6 @@
 <div class="container mt-5">
-    <div class="row form-wrapper border border-dark border-opacity-25 rounded-2 col col-md-9 col-xl-6 m-auto">
-      <h2 class="h2 text-center">LOG IN</h2>
+    <mat-card class="box row form-wrapper border border-dark border-opacity-25 rounded-2 col col-md-9 col-xl-6 m-auto">
+      <mat-card-title class="h2 text-center">LOG IN</mat-card-title>
       <form
         [formGroup]="loginForm"
         (ngSubmit)="login()"
@@ -33,6 +33,7 @@
           class="form-control"
           mat-raised-button
           color="primary"
+          [disabled]="loginForm.invalid"
         >
           Log in
           <!-- <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> -->
@@ -41,6 +42,6 @@
           Don't have an account yet? <a routerLink="/signup">Sign up</a>
         </div>
       </form>
-    </div>
+    </mat-card>>
   </div>
-  
+

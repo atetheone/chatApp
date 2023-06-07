@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserLogin } from 'src/app/entities/login.entity';
 
 @Component({
   selector: 'app-login',
@@ -33,29 +34,34 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const userAuth = {
+    const userAuth: UserLogin = {
       email: this.email?.value,
       password: this.password?.value,
     };
 
     this.authService.login(userAuth).subscribe({
       next: (user) => {
+        console.log(user)
         if (user.token) {
           this._snackBar.open('Logged in successfully', 'Close', {
             duration: 2000,
-            verticalPosition: 'top',
+            verticalPosition: 'bottom',
             horizontalPosition: 'right',
             panelClass: ['bg-success'],
           });
-          this.router.navigateByUrl('/home');
+          localStorage.setItem('jwt_token', user.token);
+          this.router.navigateByUrl('/chat');
         } else {
           this._snackBar.open('Email/Password invalid!!!', 'Close', {
             duration: 2000,
-            verticalPosition: 'top',
+            verticalPosition: 'bottom',
             horizontalPosition: 'right',
             panelClass: ['bg-danger'],
           });
         }
+      },
+      error: err => {
+        console.log(err.error)
       }
     });
   }
