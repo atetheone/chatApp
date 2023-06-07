@@ -1,24 +1,27 @@
-import app from "../app";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+import request from "supertest";
+import app from "../app";
 
-let mongo: MongoMemoryServer;
+let mongod: any;
 beforeAll(async () => {
-  mongo = await MongoMemoryServer.create();
-  const mongoUri = mongo.getUri();
+  process.env.JWT_SECRET = "rez433FE";
+  mongod = await MongoMemoryServer.create();
+  const mongoUri = mongod.getUri();
 
+  await mongoose.disconnect();
   await mongoose.connect(mongoUri);
-}); 
+});
 
 beforeEach(async () => {
   const collections = await mongoose.connection.db.collections();
 
-	collections.forEach(async collection => {
-		await collection.deleteMany({});
-	});
+  for (let collection of collections) {
+    await collection.deleteMany({});
+  }
 });
 
 afterAll(async () => {
-	await mongo.stop();
-	await mongoose.connection.close();
-})
+  await mongod.stop();
+  await mongoose.connection.close();
+});
