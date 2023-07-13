@@ -10,6 +10,7 @@ router.get(
   currentUser,
   requireAuth,
   (req: Request, res: Response) => {
+    console.log(`current user is: ${JSON.stringify(req.currentUser, null, 3)}`)
     res.json(req.currentUser || null);
   }
 );

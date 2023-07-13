@@ -2,7 +2,6 @@ import express from "express";
 import "express-async-errors";
 import morgan from "morgan";
 import cors from "cors";
-import cookieSession  from "cookie-session";
 
 import {
   defaultRouter,
@@ -24,10 +23,6 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(cookieSession({
-  signed: false,
-  secure: false
-}))
 /********************************************************* */
 
 /***API ENDPOINTS***************************************** */
