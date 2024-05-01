@@ -1,19 +1,14 @@
-<!-- <div class="chat-wrapper d-flex">
-  <div class="aside col-3 py-1 px-2">
-    
-  </div>
-  <div class="vertical-divider bg-dark h-100 w-1"></div>
-  
-</div> -->
-<div class="chat-wrapper">
-  <mat-drawer-container class="example-container">
-    <mat-drawer class="aside col-3 py-1 px-2" mode="side" opened>
-      <h2 class="title-chat text-center">Conversations</h2>
-      <div class="users-search"></div>
-      <app-chat-list-users></app-chat-list-users>
-    </mat-drawer>
-    <mat-drawer-content class="overflow-scroll">
+<div class="container chat container">
+  <div class="row">
+
+    <div class="col-12 col-md-4 ">
+      <app-chat-list-users
+        [selectedUser]="selectedUser"
+        (selectUser)="selectUser($event)"
+      ></app-chat-list-users>
+    </div>
+    <div class="col-12 col-md-8">
       <app-chat-dialog></app-chat-dialog>
-    </mat-drawer-content>
-  </mat-drawer-container>
+    </div>
+  </div>
 </div>

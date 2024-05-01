@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { 
-  UserLogin,
+  UserLogin, 
   UserSignup,
   LoginResponse,
   SignupResponse,
@@ -25,14 +25,22 @@ export class AuthService {
       
     })
       .pipe(map(user => {
-        this.currentUser =  user.currentUser;
-        return user.currentUser;
+        this.currentUser =  user;
+        // console.log(this.currentUser);
+        return user;
       }));
     
   }
 
   public loggedIn(): boolean {
-    return localStorage.getItem('jwt_token') !== null;
+    const token =  localStorage.getItem('jwt_token');
+    // if (!token) return false;
+    return token !== null && token !== undefined;
+
+    //Checks if the token is still valid
+    const expireTokenDate = JSON.parse(atob(token!.split('.')[1])).exp;
+    
+
   }
 
   signup(user: UserSignup): Observable<SignupResponse> {
@@ -50,6 +58,6 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('jwt_token');
+    const expireTokenDate = localStorage.removeItem('jwt_token');
   }
 }

@@ -14,13 +14,24 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiUri}/users`)
+    return this.http.get<User[]>(`${environment.apiUri}/api/auth/users`)
       .pipe(
         map(
           (resp: User[]) => {
             return resp;
           }
         )
-      )
+      );
+  }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${environment.apiUri}/users/${id}`)
+      .pipe(
+        map(
+          (resp: User) => {
+            return resp;
+          }
+        )
+      );
   }
 }

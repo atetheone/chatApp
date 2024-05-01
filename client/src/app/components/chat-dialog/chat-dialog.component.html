@@ -1,21 +1,5 @@
-<div class="chat-dialog w-100">
+<!-- <div class="chat-dialog w-100">
   <ul class="messages d-flex flex-column">
-    <li class="left">Bonjour</li>
-    <li class="right"> Oui bonjour comment vas-tu ?</li>
-    <li class="left">Je vais bien et toi?</li>
-    <li class="right">Moi aussi ça va.</li>
-    <li class="left">Bonjour</li>
-    <li class="right"> Oui bonjour comment vas-tu ?</li>
-    <li class="left">Je vais bien et toi?</li>
-    <li class="right">Moi aussi ça va.</li>
-    <li class="left">Bonjour</li>
-    <li class="right"> Oui bonjour comment vas-tu ?</li>
-    <li class="left">Je vais bien et toi?</li>
-    <li class="right">Moi aussi ça va.</li>
-    <li class="left">Bonjour</li>
-    <li class="right"> Oui bonjour comment vas-tu ?</li>
-    <li class="left">Je vais bien et toi?</li>
-    <li class="right">Moi aussi ça va.</li>
     <li class="left">Bonjour</li>
     <li class="right"> Oui bonjour comment vas-tu ?</li>
     <li class="left">Je vais bien et toi?</li>
@@ -23,9 +7,88 @@
   </ul>
 
   <form class="input-send-message d-flex" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-    <input mat-input type="text" class="form-control" formControlName="message">
+    <input mat-input type="text" class="form-control" formControlName="message"> -->
 
     <!-- </textarea> -->
-    <button mat-button mat-raised-button class="mx-1 send-button" type="submit" color="primary">Send</button>
+    <!-- <button mat-button mat-raised-button class="mx-1 send-button" type="submit" color="primary">Send</button>
   </form>
-</div>
+</div> -->
+
+<!-- <mat-card class="discussion">
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Discussion</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content> -->
+    <!-- <ul class="messages d-flex flex-column" *ngFor="let message of messages">
+      <li class="left" *ngIf="message.from !== currentUser.email">{{ message.content }}</li>
+      <li class="right" *ngIf="message.from === currentUser.email">{{ message.content }}</li>
+    </ul> -->
+    <!-- <ul class="messages d-flex flex-column">
+      <li class="left">Bonjour</li>
+      <li class="right"> Oui bonjour comment vas-tu ?</li>
+      <li class="left">Je vais bien et toi?</li>
+      <li class="right">Moi aussi ça va.</li>
+      <li class="left">Bonjour</li>
+      <li class="right"> Oui bonjour comment vas-tu ?</li>
+      <li class="left">Je vais bien et toi?</li>
+      <li class="right">Moi aussi ça va.</li>
+      <li class="left">Bonjour</li>
+      <li class="right"> Oui bonjour comment vas-tu ?</li>
+      <li class="left">Je vais bien et toi?</li>
+      <li class="right">Moi aussi ça va.</li>
+      <li class="right">Moi aussi ça va.</li>
+      <li class="left">Bonjour</li>
+      <li class="right"> Oui bonjour comment vas-tu ?</li>
+      <li class="left">Je vais bien et toi?</li>
+      <li class="right">Moi aussi ça va.</li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <form class="input-send-message d-flex" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+      <input mat-input type="text" class="form-control" formControlName="message">
+      <button mat-button mat-raised-button class="mx-1 send-button" type="submit" color="primary">Send</button>
+    </form>
+  </mat-card-actions>
+</mat-card> -->
+
+<div class="chat discussion w-100">
+  <div class="chat-header clearfix">
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+    
+    <div class="chat-about">
+      <div class="chat-with">Chat with {{ email }}</div>
+      <div class="chat-num-messages">already 1 902 messages</div>
+    </div>
+    <i class="fa fa-star"></i>
+  </div> <!-- end chat-header -->
+  
+  <div class="chat-history">
+    <ul>
+      <li class="clearfix">
+        <div class="message-data align-right">
+          <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
+          <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+          
+        </div>
+        <div class="message other-message float-right">
+          Hi Vincent, how are you? How is the project coming along?
+        </div>
+      </li>
+  
+    </ul>
+    
+  </div> <!-- end chat-history -->
+  
+  <div class="chat-message clearfix">
+    <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+            
+    <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+    <i class="fa fa-file-image-o"></i>
+    
+    <button mat-button mat-raised-button (click)="sendMessage()"> Send </button>
+
+  </div> <!-- end chat-message -->
+  
+</div> 

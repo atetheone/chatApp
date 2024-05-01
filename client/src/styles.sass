@@ -1,12 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'node_modules/@angular/material/theming'
+
+@include mat-core()
+
+@mixin define-css-classes($theme) 
+  @include angular-material-theme($theme)
+
+  $primary: map-get($theme, primary)
+  $accent: map-get($theme, accent)
+  $warn: map-get($theme, warn)
+  $background: map-get($theme, background)
+  $foreground: map-get($theme, foreground)
+
+  // CSS THEME-DEPENDENT-STYLES ARE HERE:
+  .theme-dependent-colors 
+    background: mat-color($primary)
+    color: mat-color($accent)
+    
+
+*, *:before, *:after
+  box-sizing: border-box
+
 *
   margin: 0
   padding: 0
-  box-sizing: border-box
+  overflow-x: hidden
 
 .wrapper
   min-height: 100vh
-  padding: 10px
   // display: flex
   // // align-items: center
   // justify-content: center

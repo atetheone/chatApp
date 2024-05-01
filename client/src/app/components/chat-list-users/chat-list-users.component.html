@@ -1,1 +1,51 @@
-<p>chat-list-users works!</p>
+<mat-card class="conversations h-100">
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Conversations</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="search">
+      <input type="search" placeholder="search" />
+      <i class="fa fa-search"></i>
+    </div>
+    <mat-list>
+      <!-- <mat-list-item *ngFor="let conversation of conversations">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <h4 mat-line>{{conversation.name}}</h4>
+        <p mat-line>
+          <span class="conversation-preview">{{conversation.messages[conversation.messages.length - 1].message}}</span>
+          <span class="conversation-date">{{conversation.messages[conversation.messages.length - 1].date | date:'shortTime'}}</span>
+        </p>
+      </mat-list-item> -->
+      <ul class="list">
+        <li class="clearfix d-flex btn" *ngFor="let user of otherUsers" (click)="selectUser(user)">
+          <!-- <img [src]="user.name" alt="" /> -->
+          <!-- Material icon for a user avatar -->
+          <div class="mt-1">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+          </div>
+          <div class="about">
+            <div class="name">{{ user.name }}</div>
+            <!-- <div class="status">
+              <i
+                *ngClass="{
+                  'fa fa-circle online': user.status === 'online',
+                  'fa fa-circle offline': user.status === 'offline'
+                }"
+              ></i>
+              {{ user.status }}
+            </div> -->
+          </div>
+          <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+          <div class="about">
+            <div class="name">Vincent Porter</div>
+            <div class="status">
+              <i class="fa fa-circle online"></i> online
+            </div>
+          </div> -->
+        </li>
+      </ul>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

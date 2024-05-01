@@ -41,34 +41,42 @@
     </div>
   </div>
 </mat-toolbar> -->
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <div class="d-flex justify-content-between">
-      <span>Chat App</span>
+<mat-toolbar color="secondary" class="sticky-top">
+  <mat-toolbar-row class="d-flex justify-content-between">
+    <div class="star-nav">
+      <button mat-button routerLink="/">
+        <mat-icon>home</mat-icon>
+        <span class="logo">Chattime</span>
+      </button>
+    </div>
 
-      <div class="end-nav">
-        <button mat-icon-button routerLink="/chat">
-          <mat-icon>messages</mat-icon>
+    <div class="end-nav d-flex">
+      <button *ngIf="isLoggedIn" mat-icon-button routerLink="/chat">
+        <mat-icon>messages</mat-icon>
+      </button>
+      <div *ngIf="isLoggedIn; else notLogged">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
         </button>
-        <div *ngIf="isLoggedIn; else notLogged">
-          <button mat-button routerLink="/logout">Logout</button>
-        </div>
-        <ng-template #notLogged>
-          <button
-            mat-button
-            routerLink="/login"
-            class="login btn btn-outline-light mx-2"
-          >
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Profile</button>
+          <button mat-menu-item>Settings</button>
+          <button mat-menu-item  (click)="onLogout()">Logout</button>
+        </mat-menu>
+        <!-- <button mat-button (click)="onLogout()">Logout</button> -->
+      </div>
+      <ng-template #notLogged>
+        <div class="logSig">
+          <button mat-button routerLink="/login" class="login mx-2 px-2">
             Login
           </button>
-          <button
-            mat-button
-            routerLink="/login"
-            class="signup btn btn-outline-light mx-2"
-          >
+          <button mat-button routerLink="/signup" class="signup mx-2">
             Signup
           </button>
-        </ng-template>
+        </div>
+      </ng-template>
+
+      <!-- <ng-template>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -77,7 +85,7 @@
           <button mat-menu-item>Settings</button>
           <button mat-menu-item>Logout</button>
         </mat-menu>
-      </div>
+      </ng-template> -->
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

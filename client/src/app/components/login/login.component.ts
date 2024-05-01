@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       next: (user) => {
         console.log(user)
         if (user.token) {
+          // Add snackbar here on login success
           this._snackBar.open('Logged in successfully', 'Close', {
             duration: 2000,
             verticalPosition: 'bottom',

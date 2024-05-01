@@ -1,11 +1,16 @@
 <div class="container mt-5">
-    <mat-card class="box row form-wrapper border border-dark border-opacity-25 rounded-2 col col-md-9 col-xl-6 m-auto">
+  <mat-card
+    class="box row border border-dark border-opacity-25 rounded-2 col col-md-9 col-xl-6 m-auto"
+  >
+    <mat-card-header class="title-login text-center">
       <mat-card-title class="h2 text-center">LOG IN</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <form
         [formGroup]="loginForm"
         (ngSubmit)="login()"
         novalidate
-        class="  needs-validation"
+        class="needs-validation"
       >
         <mat-form-field class="w-100 mb-2">
           <mat-label>Email</mat-label>
@@ -16,7 +21,7 @@
             id="emailformControl"
           />
         </mat-form-field>
-  
+
         <mat-form-field class="w-100 mb-4">
           <mat-label for="passwordformControl">Password</mat-label>
           <input
@@ -26,7 +31,7 @@
             id="passwordformControl"
           />
         </mat-form-field>
-        
+
         <button
           id="loginButton"
           type="submit"
@@ -42,6 +47,6 @@
           Don't have an account yet? <a routerLink="/signup">Sign up</a>
         </div>
       </form>
-    </mat-card>>
-  </div>
-
+    </mat-card-content> </mat-card
+  >>
+</div>
